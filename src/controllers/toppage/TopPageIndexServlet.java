@@ -1,4 +1,4 @@
-package toppage;
+package controllers.toppage;
 
 import java.io.IOException;
 
@@ -31,5 +31,6 @@ public class TopPageIndexServlet extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/topPage/index.jsp");
         rd.forward(request, response);
 }
+
 
 }
