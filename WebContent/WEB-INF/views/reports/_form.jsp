@@ -9,7 +9,7 @@
    </c:forEach>
   </div>
 </c:if>
-<lable for="report_date">日付</lable><br />
+<label for="report_date">日付</label><br />
 <input type="date" name="report_date" value="<fmt:formatDate value='${report.report_date}' pattern='yyyy-MM-dd'/>"/>
 <br /><br />
 
@@ -17,12 +17,12 @@
 <c:out value="${sessionScope.login_employee.name}" />
 <br /><br />
 
-<lable for="title">タイトル</lable><br />
+<label for="title">タイトル</label><br />
 <input type="text" name="title" value="${report.title}" />
 <br /><br />
 
 <label for="content">内容</label>
-<textarea name="content" rows="10" clos="50">${report.content}</textarea>
+<textarea name="content" rows="10" cols="50">${report.content}</textarea>
 <br /><br />
 
 <input type="hidden" name="_token" value="${_token}" />
