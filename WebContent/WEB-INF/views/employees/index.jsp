@@ -26,6 +26,11 @@
                                 </c:when>
                                 <c:otherwise>
                                     <a href="<c:url value='/employees/show?id=${employee.id}' />">詳細を表示</a>
+                                     <c:if test="${sessionScope.login_employee.id !=employee.id}">
+                                        <form method="POST" action="${pageContext.request.contextPath}/FollowServlet">
+                                          <input type="submit" name="$={employee.id}" value="フォローする">
+                                        </form>
+                                     </c:if>
                                 </c:otherwise>
                             </c:choose>
                         </td>
