@@ -5,11 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="follows")
-
+@NamedQuery(
+        name = "getLoginUserFollowId",
+        query = "SELECT f FROM Follow AS f WHERE f.follow_id=:follow_id"
+        )
 public class Follow {
     @Id
     @Column(name="id")

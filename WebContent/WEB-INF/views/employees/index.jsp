@@ -15,7 +15,7 @@
                     <th>氏名</th>
                     <th>操作</th>
                 </tr>
-                <c:forEach var="employee" items="${employees}" varStatus="status">
+               <c:forEach var="employee" items="${employees}" varStatus="status">
                     <tr class="row${status.count % 2}">
                         <td><c:out value="${employee.code}" /></td>
                         <td><c:out value="${employee.name}" /></td>
@@ -26,11 +26,27 @@
                                 </c:when>
                                 <c:otherwise>
                                     <a href="<c:url value='/employees/show?id=${employee.id}' />">詳細を表示</a>
-                                     <c:if test="${sessionScope.login_employee.id !=employee.id}">
-                                        <form method="POST" action="${pageContext.request.contextPath}/FollowServlet">
-                                          <input type="submit" name="$={employee.id}" value="フォローする">
-                                        </form>
-                                     </c:if>
+
+                                    <c:if test="${sessionScope.login_employee.id !=employee.id}">
+                                       <form method="POST" action="<c:url value='/follows/add?employee_id=${employee.id}&employee_name=${employee.name}' />">
+                                         <input type="hidden" name="employee.id" value="${employee.id}"/>
+                                         <input type="hidden" name="employee.id" value="${employee.name}"/>
+                                         <input type="submit" name="follow" value="フォローする">
+                                       </form>
+                                    </c:if>
+                                    <c:if test="${follows != null }">
+                                      <c:forEach var="follow" items="${follows}" varStatus="status2">
+                                       <c:if test="${follow.followed_id==employee.id}">
+                                         <p>(フォロー中)</p>
+                                         <a href="<c:url value='/follows/followIndex?id=${employee.id}' />">日報一覧</a>
+                                         <form method="POST" action="<c:url value='/follows/unfollow?follow_id=${follow.id}' />">
+                                           <input type="hidden" name="follow.id" value="${follow.id}"/>
+                                           <input type="submit" name="unfollow" value="フォロー解除">
+                                         </form>
+
+                                       </c:if>
+                                      </c:forEach>
+                                    </c:if>
                                 </c:otherwise>
                             </c:choose>
                         </td>

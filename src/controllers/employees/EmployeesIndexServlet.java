@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.Employee;
+import models.Follow;
 import utils.DBUtil;
 
 /**
@@ -47,11 +48,23 @@ public class EmployeesIndexServlet extends HttpServlet {
         long employees_count = (long)em.createNamedQuery("getEmployeesCount", Long.class)
                                        .getSingleResult();
 
+        Employee e =(Employee)request.getSession().getAttribute("login_employee");
+        List<Follow> follows=em.createNamedQuery("getLoginUserFollowId", Follow.class)
+                               .setParameter("follow_id", e.getId())
+                               .getResultList();
+
+
+
+
+
         em.close();
 
         request.setAttribute("employees", employees);
         request.setAttribute("employees_count", employees_count);
         request.setAttribute("page", page);
+        request.setAttribute("follows",follows);
+
+
         if(request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
