@@ -25,27 +25,48 @@
                                     （削除済み）
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="<c:url value='/employees/show?id=${employee.id}' />">詳細を表示</a>
+                                   <a href="<c:url value='/employees/show?id=${employee.id}' />">詳細を表示</a>&nbsp;&nbsp;&nbsp;
 
-                                    <c:if test="${sessionScope.login_employee.id !=employee.id}">
+                                   <!--  <c:if test="${sessionScope.login_employee.id !=employee.id}">
                                        <form method="POST" action="<c:url value='/follows/add?employee_id=${employee.id}&employee_name=${employee.name}' />">
                                          <input type="hidden" name="employee.id" value="${employee.id}"/>
-                                         <input type="hidden" name="employee.id" value="${employee.name}"/>
-                                         <input type="submit" name="follow" value="フォローする">
+                                         <input type="hidden" name="employee.name" value="${employee.name}"/>
                                        </form>
-                                    </c:if>
+                                    </c:if> -->
+
+                                    <c:set var="flg" value="0" />
+
                                     <c:if test="${follows != null }">
-                                      <c:forEach var="follow" items="${follows}" varStatus="status2">
+                                      <c:forEach var="follow" items="${follows}" varStatus="status3">
                                        <c:if test="${follow.followed_id==employee.id}">
-                                         <p>(フォロー中)</p>
                                          <a href="<c:url value='/follows/followIndex?id=${employee.id}' />">日報一覧</a>
                                          <form method="POST" action="<c:url value='/follows/unfollow?follow_id=${follow.id}' />">
                                            <input type="hidden" name="follow.id" value="${follow.id}"/>
-                                           <input type="submit" name="unfollow" value="フォロー解除">
+                                           <input type="submit" name="unfollow" value="フォロー解除" >
                                          </form>
-
+                                         (フォロー中)
+                                         <c:set var="flg" value="1" />
                                        </c:if>
                                       </c:forEach>
+
+
+                                      <c:if test="${flg==0&&sessionScope.login_employee.id !=employee.id}">
+                                        <form method="POST" action="<c:url value='/follows/add?employee_id=${employee.id}&employee_name=${employee.name}' />">
+                                         <input type="hidden" name="employee.id" value="${employee.id}"/>
+                                         <input type="hidden" name="employee.name" value="${employee.name}"/>
+                                         <input type="submit" name="follow" value="フォローする" >
+                                        </form>
+                                     </c:if>
+                                    </c:if>
+
+
+                                    <c:if test="${follows == null&& sessionScope.login_employee.id !=employee.id}">
+                                    <form method="POST" action="<c:url value='/follows/add?employee_id=${employee.id}&employee_name=${employee.name}' />">
+                                         <input type="hidden" name="employee.id" value="${employee.id}"/>
+                                         <input type="hidden" name="employee.name" value="${employee.name}"/>
+                                         <input type="submit" name="follow" value="フォローする" >
+                                    </form>
+
                                     </c:if>
                                 </c:otherwise>
                             </c:choose>
