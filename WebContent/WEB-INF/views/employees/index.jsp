@@ -27,12 +27,8 @@
                                 <c:otherwise>
                                    <a href="<c:url value='/employees/show?id=${employee.id}' />">詳細を表示</a>&nbsp;&nbsp;&nbsp;
 
-                                   <!--  <c:if test="${sessionScope.login_employee.id !=employee.id}">
-                                       <form method="POST" action="<c:url value='/follows/add?employee_id=${employee.id}&employee_name=${employee.name}' />">
-                                         <input type="hidden" name="employee.id" value="${employee.id}"/>
-                                         <input type="hidden" name="employee.name" value="${employee.name}"/>
-                                       </form>
-                                    </c:if> -->
+
+
 
                                     <c:set var="flg" value="0" />
 
